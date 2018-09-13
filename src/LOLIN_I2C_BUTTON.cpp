@@ -14,9 +14,9 @@ unsigned char I2C_BUTTON::get()
 	send_data[0] = GET_KEY_VALUE;
 	unsigned char result = sendData(send_data, 1);
 
-	BUTTON_A= (get_data[0]>>4);
+	BUTTON_A = (get_data[0] >> 4);
 
-	BUTTON_B= (get_data[0]&0x0f);
+	BUTTON_B = (get_data[0] & 0x0f);
 	return result;
 }
 
@@ -37,10 +37,20 @@ unsigned char I2C_BUTTON::changeAddress(unsigned char address)
 	return result;
 }
 
+unsigned char I2C_BUTTON::getInfo(void)
+{
+	send_data[0] = GET_SLAVE_STATUS;
+	unsigned char result =sendData(send_data, 1);
+	
+	PRODUCT_ID=get_data[0];
+	VERSION=get_data[1];
+
+	return result;
+}
+
 unsigned char I2C_BUTTON::sendData(unsigned char *data, unsigned char len)
 {
 	unsigned char i;
-
 
 	Wire.beginTransmission(_address);
 	for (i = 0; i < len; i++)
@@ -53,13 +63,12 @@ unsigned char I2C_BUTTON::sendData(unsigned char *data, unsigned char len)
 	else
 		Wire.requestFrom(_address, 1);
 
-	i=0;
+	i = 0;
 
 	while (Wire.available())
 	{
 		get_data[i] = Wire.read();
 		i++;
-
 	}
 
 	return 0;

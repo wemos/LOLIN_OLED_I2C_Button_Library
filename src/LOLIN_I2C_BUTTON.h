@@ -10,6 +10,7 @@
 
 #include "Wire.h"
 
+#define PRODUCT_ID_I2C_BUTTON 0x01
 #define DEFAULT_I2C_ADDRESS 0x31
 
 enum I2C_CMD
@@ -31,9 +32,12 @@ class I2C_BUTTON
 	unsigned char get(void);
 	unsigned char reset(void);
 	unsigned char changeAddress(unsigned char address);
+  unsigned char getInfo(void);
 
 	unsigned char BUTTON_A;
 	unsigned char BUTTON_B;
+  unsigned char VERSION=0;
+  unsigned char PRODUCT_ID=0;
 
   private:
 	unsigned char _address;
