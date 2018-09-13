@@ -1,7 +1,7 @@
 #include "LOLIN_I2C_BUTTON.h"
 
 /* 
-
+	Init
 */
 I2C_BUTTON::I2C_BUTTON(uint8_t address)
 {
@@ -9,6 +9,14 @@ I2C_BUTTON::I2C_BUTTON(uint8_t address)
 	_address = address;
 }
 
+/*
+	Get last button status  
+	0 - None
+	1 - Press
+	2 - Long Press
+	3 - Double Press
+	4 - Hold
+*/
 unsigned char I2C_BUTTON::get()
 {
 	send_data[0] = GET_KEY_VALUE;
@@ -20,6 +28,9 @@ unsigned char I2C_BUTTON::get()
 	return result;
 }
 
+/*
+	Reset Device.
+*/
 unsigned char I2C_BUTTON::reset()
 {
 	send_data[0] = RESET_SLAVE;
@@ -28,6 +39,10 @@ unsigned char I2C_BUTTON::reset()
 	return result;
 }
 
+/*
+	Change Device I2C address
+	address: when address=0, address>127, address=0x3C or address=0x3D, will change address to default I2C address 0x31
+*/
 unsigned char I2C_BUTTON::changeAddress(unsigned char address)
 {
 	send_data[0] = CHANGE_I2C_ADDRESS;
@@ -37,6 +52,9 @@ unsigned char I2C_BUTTON::changeAddress(unsigned char address)
 	return result;
 }
 
+/*
+	Get PRODUCT_ID and Firmwave VERSION
+*/
 unsigned char I2C_BUTTON::getInfo(void)
 {
 	send_data[0] = GET_SLAVE_STATUS;
@@ -48,6 +66,9 @@ unsigned char I2C_BUTTON::getInfo(void)
 	return result;
 }
 
+/*
+	Send and Get I2C Data
+*/
 unsigned char I2C_BUTTON::sendData(unsigned char *data, unsigned char len)
 {
 	unsigned char i;
