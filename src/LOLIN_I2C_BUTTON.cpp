@@ -41,7 +41,7 @@ unsigned char I2C_BUTTON::reset()
 
 /*
 	Change Device I2C address
-	address: when address=0, address>127, address=0x3C or address=0x3D, will change address to default I2C address 0x31
+	address: when address=0, address>=127, address=0x3C or address=0x3D, will change address to default I2C address 0x31
 */
 unsigned char I2C_BUTTON::changeAddress(unsigned char address)
 {

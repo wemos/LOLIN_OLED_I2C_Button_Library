@@ -42,6 +42,8 @@ void loop()
 
                 button.changeAddress(new_address);
                 new_address++;
+                if (new_address > 126)
+                    new_address = 1;
             }
         }
     }
