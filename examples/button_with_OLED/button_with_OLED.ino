@@ -3,8 +3,8 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
-#define I2C_BUTTON_ADDRESS 0x28
-#define OLED_RESET -1 // GPIO0
+#define I2C_BUTTON_ADDRESS DEFAULT_I2C_ADDRESS //0x31
+#define OLED_RESET -1 
 Adafruit_SSD1306 display(OLED_RESET);
 
 I2C_BUTTON button(I2C_BUTTON_ADDRESS);
@@ -23,21 +23,22 @@ void loop()
     display.setTextSize(1);
     display.setCursor(0, 0);
     display.setTextColor(WHITE);
-    
 
-    button.get();
-
-    if (button.BUTTON_A)
+    if (button.get() == 0)
     {
-        display.println("A: ");
-        display.println(keyString[button.BUTTON_A]);
+        if (button.BUTTON_A)
+        {
+            display.println("A: ");
+            display.println(keyString[button.BUTTON_A]);
+        }
+
+        if (button.BUTTON_B)
+        {
+            display.println("B: ");
+            display.println(keyString[button.BUTTON_B]);
+        }
+        display.display();
     }
 
-    if (button.BUTTON_B)
-    {
-        display.println("B: ");
-        display.println(keyString[button.BUTTON_B]);
-    }
-    display.display();
     delay(500);
 }

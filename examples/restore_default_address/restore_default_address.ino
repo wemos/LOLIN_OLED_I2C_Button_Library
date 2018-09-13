@@ -1,17 +1,12 @@
 #include <LOLIN_I2C_BUTTON.h>
 
-byte new_address = 1;
-
 void setup()
 {
+    byte error, address;
+
     Wire.begin();
 
     Serial.begin(115200);
-}
-
-void loop()
-{
-    byte error, address;
 
     Serial.println("Scanning...");
     for (address = 1; address < 127; address++)
@@ -35,20 +30,23 @@ void loop()
                     Serial.print("Firmware Version: ");
                     Serial.println(button.VERSION);
 
-                    Serial.print("Try to change Address to 0x");
-                    if (new_address < 16)
-                        Serial.print("0");
-                    Serial.println(new_address, HEX);
-                    Serial.println("");
+                    if (address == DEFAULT_I2C_ADDRESS)
+                    {
+                        Serial.println("Already default address");
+                    }
+                    else
+                    {
+                        Serial.print("Try to restore default address 0x");
+                        Serial.println(DEFAULT_I2C_ADDRESS, HEX);
 
-                    button.changeAddress(new_address);
-                    new_address++;
-                    if (new_address > 126)
-                        new_address = 1;
+                        button.changeAddress(DEFAULT_I2C_ADDRESS);
+                    }
                 }
             }
         }
     }
+}
 
-    delay(2000);
+void loop()
+{
 }

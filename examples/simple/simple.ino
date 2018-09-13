@@ -11,18 +11,20 @@ void setup()
 
 void loop()
 {
-  button.get();
-
-  if (button.BUTTON_A)
+  if (button.get() == 0)
   {
-    Serial.print("BUTTON A: ");
-    Serial.println(keyString[button.BUTTON_A]);
+    if (button.BUTTON_A)
+    {
+      Serial.print("BUTTON A: ");
+      Serial.println(keyString[button.BUTTON_A]);
+    }
+
+    if (button.BUTTON_B)
+    {
+      Serial.print("BUTTON B: ");
+      Serial.println(keyString[button.BUTTON_B]);
+    }
   }
 
-  if (button.BUTTON_B)
-  {
-    Serial.print("BUTTON B: ");
-    Serial.println(keyString[button.BUTTON_B]);
-  }
   delay(100);
 }

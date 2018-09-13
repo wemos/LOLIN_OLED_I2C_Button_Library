@@ -22,9 +22,17 @@ unsigned char I2C_BUTTON::get()
 	send_data[0] = GET_KEY_VALUE;
 	unsigned char result = sendData(send_data, 1);
 
-	BUTTON_A = (get_data[0] >> 4);
+	if (result == 0)
+	{
+		BUTTON_A = (get_data[0] >> 4);
+		BUTTON_B = (get_data[0] & 0x0f);
+	}
+	else
+	{
+		BUTTON_A = 0;
+		BUTTON_B = 0;
+	}
 
-	BUTTON_B = (get_data[0] & 0x0f);
 	return result;
 }
 
@@ -58,10 +66,17 @@ unsigned char I2C_BUTTON::changeAddress(unsigned char address)
 unsigned char I2C_BUTTON::getInfo(void)
 {
 	send_data[0] = GET_SLAVE_STATUS;
-	unsigned char result =sendData(send_data, 1);
-	
-	PRODUCT_ID=get_data[0];
-	VERSION=get_data[1];
+	unsigned char result = sendData(send_data, 1);
+	if (result == 0)
+	{
+		PRODUCT_ID = get_data[0];
+		VERSION = get_data[1];
+	}
+	else
+	{
+		PRODUCT_ID = 0;
+		VERSION = 0;
+	}
 
 	return result;
 }
@@ -73,24 +88,32 @@ unsigned char I2C_BUTTON::sendData(unsigned char *data, unsigned char len)
 {
 	unsigned char i;
 
-	Wire.beginTransmission(_address);
-	for (i = 0; i < len; i++)
-		Wire.write(data[i]);
-	Wire.endTransmission();
-	delay(50);
-
-	if (data[0] == GET_SLAVE_STATUS)
-		Wire.requestFrom(_address, 2);
-	else
-		Wire.requestFrom(_address, 1);
-
-	i = 0;
-
-	while (Wire.available())
+	if ((_address == 0) || (_address >= 127) || (_address == OLED_I2C_ADDRESS_1) || (_address == OLED_I2C_ADDRESS_2))
 	{
-		get_data[i] = Wire.read();
-		i++;
+		return 1;
 	}
+	else
+	{
 
-	return 0;
+		Wire.beginTransmission(_address);
+		for (i = 0; i < len; i++)
+			Wire.write(data[i]);
+		Wire.endTransmission();
+		delay(50);
+
+		if (data[0] == GET_SLAVE_STATUS)
+			Wire.requestFrom(_address, 2);
+		else
+			Wire.requestFrom(_address, 1);
+
+		i = 0;
+
+		while (Wire.available())
+		{
+			get_data[i] = Wire.read();
+			i++;
+		}
+
+		return 0;
+	}
 }
