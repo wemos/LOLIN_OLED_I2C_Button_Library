@@ -15,6 +15,15 @@ void setup()
 {
     Serial.begin(115200);
     display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+
+    display.clearDisplay();
+    display.setTextSize(2);
+    display.setTextColor(WHITE);
+    display.println(number);
+    display.println();
+    display.print("-   +");
+
+    display.display();
 }
 
 void loop()
@@ -22,10 +31,9 @@ void loop()
 
     if (button.get() == 0)
     {
+
         display.clearDisplay();
-        display.setTextSize(2);
         display.setCursor(0, 0);
-        display.setTextColor(WHITE);
 
         switch (button.BUTTON_B)
         {
@@ -72,9 +80,11 @@ void loop()
         }
 
         display.println(number);
+        display.println();
+        display.print("-   +");
 
         display.display();
     }
 
-    delay(100);
+    // delay(10);
 }
