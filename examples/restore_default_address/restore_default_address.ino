@@ -1,3 +1,8 @@
+/*
+    Restore I2C address to DEFAULT_I2C_BUTTON_ADDRESS (0x31)
+*/
+
+#include <Wire.h>
 #include <LOLIN_I2C_BUTTON.h>
 
 void setup()
@@ -9,7 +14,7 @@ void setup()
     Serial.begin(115200);
 
     Serial.println("Scanning...");
-    for (address = 1; address < 127; address++)
+    for (address = 1; address < 127; address++) //find the I2C BUTTON device
     {
         Wire.beginTransmission(address);
         error = Wire.endTransmission();

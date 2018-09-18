@@ -18,11 +18,14 @@ HOLD BUTTON A & B:
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
-#define I2C_BUTTON_ADDRESS DEFAULT_I2C_BUTTON_ADDRESS //0x31
 #define OLED_RESET -1
 Adafruit_SSD1306 display(OLED_RESET);
 
-I2C_BUTTON button(I2C_BUTTON_ADDRESS);
+I2C_BUTTON button(DEFAULT_I2C_BUTTON_ADDRESS); //I2C Address 0x31
+
+// I2C_BUTTON button; //I2C address 0x31
+// I2C_BUTTON button(your_address); //using customize I2C address
+
 
 byte number = 0;
 
@@ -44,7 +47,7 @@ void setup()
 void loop()
 {
 
-    if (button.get() == 0)
+    if (button.get() == 0)// Button press
     {
 
         display.clearDisplay();

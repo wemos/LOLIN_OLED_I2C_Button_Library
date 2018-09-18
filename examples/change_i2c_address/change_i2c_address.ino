@@ -1,3 +1,8 @@
+/*
+    Change the I2C Address
+*/
+
+#include <Wire.h>
 #include <LOLIN_I2C_BUTTON.h>
 
 byte new_address = 1;
@@ -14,7 +19,7 @@ void loop()
     byte error, address;
 
     Serial.println("Scanning...");
-    for (address = 1; address < 127; address++)
+    for (address = 1; address < 127; address++) //find the I2C BUTTON device
     {
         Wire.beginTransmission(address);
         error = Wire.endTransmission();
@@ -41,7 +46,7 @@ void loop()
                     Serial.println(new_address, HEX);
                     Serial.println("");
 
-                    button.changeAddress(new_address);
+                    button.changeAddress(new_address); //change I2C address
                     new_address++;
                     if (new_address > 126)
                         new_address = 1;
