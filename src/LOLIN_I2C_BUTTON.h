@@ -11,7 +11,7 @@
 #include "Wire.h"
 
 #define PRODUCT_ID_I2C_BUTTON 0x01
-#define DEFAULT_I2C_ADDRESS 0x31
+#define DEFAULT_I2C_BUTTON_ADDRESS 0x31
 
 #define OLED_I2C_ADDRESS_1 0x3C
 #define OLED_I2C_ADDRESS_2 0x3D
@@ -40,7 +40,7 @@ enum KEY_VALUE
 class I2C_BUTTON
 {
   public:
-	I2C_BUTTON(unsigned char address = DEFAULT_I2C_ADDRESS);
+	I2C_BUTTON(unsigned char address = DEFAULT_I2C_BUTTON_ADDRESS);
 	unsigned char get(void);
 	unsigned char reset(void);
 	unsigned char changeAddress(unsigned char address);

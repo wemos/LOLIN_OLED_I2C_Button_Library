@@ -30,16 +30,16 @@ void setup()
                     Serial.print("Firmware Version: ");
                     Serial.println(button.VERSION);
 
-                    if (address == DEFAULT_I2C_ADDRESS)
+                    if (address == DEFAULT_I2C_BUTTON_ADDRESS)
                     {
                         Serial.println("Already default address");
                     }
                     else
                     {
                         Serial.print("Try to restore default address 0x");
-                        Serial.println(DEFAULT_I2C_ADDRESS, HEX);
+                        Serial.println(DEFAULT_I2C_BUTTON_ADDRESS, HEX);
 
-                        button.changeAddress(DEFAULT_I2C_ADDRESS);
+                        button.changeAddress(DEFAULT_I2C_BUTTON_ADDRESS);
                     }
                 }
             }

@@ -3,7 +3,7 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
-#define I2C_BUTTON_ADDRESS DEFAULT_I2C_ADDRESS //0x31
+#define I2C_BUTTON_ADDRESS DEFAULT_I2C_BUTTON_ADDRESS //0x31
 #define OLED_RESET -1 
 Adafruit_SSD1306 display(OLED_RESET);
 

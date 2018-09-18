@@ -1,9 +1,24 @@
+/*
+BUTTON A:
+    PRESS: number-1
+    DOUBLE PRESS: number-2
+    HOLD: number-10
+
+BUTTON B:
+    PRESS: number+1
+    DOUBLE PRESS: number+2
+    HOLD: number+10
+
+HOLD BUTTON A & B:
+    number=0
+*/
+
 #include <Wire.h>
 #include <LOLIN_I2C_BUTTON.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
-#define I2C_BUTTON_ADDRESS DEFAULT_I2C_ADDRESS //0x31
+#define I2C_BUTTON_ADDRESS DEFAULT_I2C_BUTTON_ADDRESS //0x31
 #define OLED_RESET -1
 Adafruit_SSD1306 display(OLED_RESET);
 
@@ -35,48 +50,56 @@ void loop()
         display.clearDisplay();
         display.setCursor(0, 0);
 
-        switch (button.BUTTON_B)
+        if ((button.BUTTON_A == KEY_VALUE_HOLD) && (button.BUTTON_B == KEY_VALUE_HOLD))// hold button A&B
         {
-        case KEY_VALUE_NONE:
-            break;
-
-        case KEY_VALUE_SHORT_PRESS:
-            number++;
-            break;
-
-        case KEY_VALUE_DOUBLE_PRESS:
-            number += 2;
-            break;
-
-        case KEY_VALUE_HOLD:
-            number += 10;
-            break;
-
-        case KEY_VALUE_LONG_PRESS:
-
-            break;
+            number = 0;
         }
-
-        switch (button.BUTTON_A)
+        else
         {
-        case KEY_VALUE_NONE:
-            break;
 
-        case KEY_VALUE_SHORT_PRESS:
-            number--;
-            break;
+            switch (button.BUTTON_B)
+            {
+            case KEY_VALUE_NONE:
+                break;
 
-        case KEY_VALUE_DOUBLE_PRESS:
-            number -= 2;
-            break;
+            case KEY_VALUE_SHORT_PRESS:
+                number++;
+                break;
 
-        case KEY_VALUE_HOLD:
-            number -= 10;
-            break;
+            case KEY_VALUE_DOUBLE_PRESS:
+                number += 2;
+                break;
 
-        case KEY_VALUE_LONG_PRESS:
+            case KEY_VALUE_HOLD:
+                number += 10;
+                break;
 
-            break;
+            case KEY_VALUE_LONG_PRESS:
+
+                break;
+            }
+
+            switch (button.BUTTON_A)
+            {
+            case KEY_VALUE_NONE:
+                break;
+
+            case KEY_VALUE_SHORT_PRESS:
+                number--;
+                break;
+
+            case KEY_VALUE_DOUBLE_PRESS:
+                number -= 2;
+                break;
+
+            case KEY_VALUE_HOLD:
+                number -= 10;
+                break;
+
+            case KEY_VALUE_LONG_PRESS:
+
+                break;
+            }
         }
 
         display.println(number);
