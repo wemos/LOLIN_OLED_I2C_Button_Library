@@ -1,26 +1,43 @@
-#######################################
-# Syntax Coloring Map For DHT12
-#######################################
+###########################################
+# Syntax Coloring Map For OLED_I2C_BUTTON
+###########################################
 
 #######################################
 # Datatypes (KEYWORD1)
 #######################################
 
-DHT12	KEYWORD1
+I2C_BUTTON	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
 get	KEYWORD2
+reset	KEYWORD2
+changeAddress	KEYWORD2
+getInfo	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
 #######################################
 
-cTemp	LITERAL1
-fTemp	LITERAL1
-humidity	LITERAL1
+PRODUCT_ID_I2C_BUTTON	LITERAL1
+DEFAULT_I2C_BUTTON_ADDRESS	LITERAL1
+
+GET_SLAVE_STATUS	LITERAL1
+RESET_SLAVE	LITERAL1
+CHANGE_I2C_ADDRESS	LITERAL1
+GET_KEY_VALUE	LITERAL1
+CHANGE_KEY_A_LONG_PRESS_TIME	LITERAL1
+CHANGE_KEY_B_LONG_PRESS_TIME	LITERAL1
+CHANGE_KEY_A_DOUBLE_PRESS_INTERVAL	LITERAL1
+CHANGE_KEY_B_DOUBLE_PRESS_INTERVAL	LITERAL1
+
+KEY_VALUE_NONE	LITERAL1
+KEY_VALUE_SHORT_PRESS	LITERAL1
+KEY_VALUE_LONG_PRESS	LITERAL1
+KEY_VALUE_DOUBLE_PRESS	LITERAL1
+KEY_VALUE_HOLD	LITERAL1
 
 
 
